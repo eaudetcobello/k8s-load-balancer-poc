@@ -10,6 +10,8 @@ Use links instead.
 
 # k8s-load-balancer
 
+For use with https://github.com/canonical/k8s-operator/tree/KU-2073/subordinate-poc
+
 Charmhub package name: operator-template
 More information: https://charmhub.io/k8s-load-balancer
 
