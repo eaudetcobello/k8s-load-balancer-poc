@@ -40,7 +40,7 @@ class K8SLoadBalancerCharm(ops.CharmBase):
         """Handle k8s-load-balancer-feature relation event."""
         logger.info("k8s-load-balancer-feature relation event")
 
-        lb_config = LoadBalancerConfig(enabled=True)  # type: ignore
+        lb_config = LoadBalancerConfig(enabled=True, cidrs=["10.0.0.0/24"], l2_mode=True)
 
         # set relation data to lb_config
         relation = self.model.get_relation(ENDPOINT_NAME)
@@ -48,11 +48,11 @@ class K8SLoadBalancerCharm(ops.CharmBase):
             feature_config = K8sFeatureConfiguration(
                 feature="load-balancer",
                 version="0.2",
-                attributes=lb_config.dict(),
+                attributes=lb_config.dict(by_alias=True),
             )
-            relation.data[self.unit].update({"feature-name": feature_config.feature})
-            relation.data[self.unit].update({"feature-version": feature_config.version})
-            relation.data[self.unit].update({"feature-attributes": json.dumps(feature_config.attributes)})
+            relation.data[self.unit].update({"name": feature_config.feature})
+            relation.data[self.unit].update({"version": feature_config.version})
+            relation.data[self.unit].update({"attributes": json.dumps(feature_config.attributes)})
 
     def _on_start(self, _event: ops.StartEvent):
         """Handle start event."""

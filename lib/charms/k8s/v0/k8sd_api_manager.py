@@ -224,7 +224,7 @@ class IngressConfig(BaseModel):
     enable_proxy_protocol: Optional[bool] = Field(None, alias="enable-proxy-protocol")
 
 
-class LoadBalancerConfig(BaseModel):
+class LoadBalancerConfig(BaseModel, allow_population_by_field_name=True):
     """Configuration for the load balancer settings of the cluster.
 
     Attributes:
@@ -241,7 +241,7 @@ class LoadBalancerConfig(BaseModel):
 
     enabled: Optional[bool] = Field(None)
     cidrs: Optional[List[str]] = Field(None)
-    l2_enabled: Optional[bool] = Field(None, alias="l2-enabled")
+    l2_mode: Optional[bool] = Field(None, alias="l2-mode")
     l2_interfaces: Optional[List[str]] = Field(None, alias="l2-interfaces")
     bgp_enabled: Optional[bool] = Field(None, alias="bgp-enabled")
     bgp_local_asn: Optional[int] = Field(None, alias="bgp-local-asn")
